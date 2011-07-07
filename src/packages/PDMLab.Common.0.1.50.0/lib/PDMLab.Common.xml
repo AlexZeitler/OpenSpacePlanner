@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PDMLab.Common</name>
+    </assembly>
+    <members>
+        <member name="T:PDMLab.Common.Configuration.IApplicationSettingsReader">
+            <summary>
+             Encapsulates access to the AppSettings section in application configuration files.
+            </summary>
+        </member>
+        <member name="M:PDMLab.Common.Configuration.IApplicationSettingsReader.GetSetting(System.String)">
+            <summary>
+            Retrieves the setting by the given key from the application configuration file.
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:PDMLab.Common.NHibernate.SqlServerConnectionStringNHibernateSessionProvider">
+            <summary>
+            Creates an instance of an Sql Server based NHibernate Session provider
+            </summary>
+        </member>
+        <member name="M:PDMLab.Common.NHibernate.SqlServerConnectionStringNHibernateSessionProvider.#ctor(System.String,System.Action{FluentNHibernate.Cfg.MappingConfiguration})">
+            <summary>
+            Creates an instance of a Sql Server based NHibernate Session provider
+            </summary>
+            <param name="connectionString">The name of the connection string to use.</param>
+            <param name="mappingConfiguration">The mapping configuration from the mapping container.</param>
+        </member>
+        <member name="T:PDMLab.Common.Resources.ResourceLoader">
+            <summary>
+            Provides methods for resource handling.
+            </summary>
+        </member>
+        <member name="M:PDMLab.Common.Resources.ResourceLoader.CreateFileFromEmbeddedResource(System.Reflection.Assembly,System.String,System.String)">
+            <summary>
+            Extracts a file from a assembly's resourse by it's name and writes it's content to the path specified.
+            </summary>
+            <param name="assembly">The assembly containing the resource specified.</param>
+            <param name="resourceName">The name of the resource.</param>
+            <param name="targetPath">The full path of the file to be created from the resource.</param>
+        </member>
+        <member name="T:PDMLab.Common.Smtp.SmtpServerMock">
+            <summary>
+            Simple SMTP Mock server
+            </summary>
+        </member>
+        <member name="M:PDMLab.Common.Smtp.SmtpServerMock.Start">
+            <summary>
+            start server
+            </summary>
+        </member>
+        <member name="M:PDMLab.Common.Smtp.SmtpServerMock.Stop">
+            <summary>
+            stop server
+            </summary>
+        </member>
+        <member name="M:PDMLab.Common.Smtp.SmtpServerMock.Run">
+            <summary>
+            run server
+            </summary>
+        </member>
+        <member name="P:PDMLab.Common.Smtp.SmtpServerMock.Sessions">
+            <summary>
+            list of all smtp sessions
+            </summary>
+        </member>
+        <member name="T:PDMLab.Common.Smtp.SmtpSession">
+            <summary>
+            Provides a Smtp Session
+            </summary>
+        </member>
+        <member name="M:PDMLab.Common.Smtp.SmtpSession.Process">
+            <summary>
+            process session
+            </summary>
+        </member>
+        <member name="M:PDMLab.Common.Smtp.SmtpSession.#ctor(System.Net.Sockets.Socket)">
+            <summary>
+            constructor
+            </summary>
+            <param name="socket"></param>
+        </member>
+        <member name="P:PDMLab.Common.Smtp.SmtpSession.SessionProtocol">
+            <summary>
+            session protocol 
+            </summary>
+        </member>
+    </members>
+</doc>
