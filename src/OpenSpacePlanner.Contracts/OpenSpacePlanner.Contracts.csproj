@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAttendee.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="INosSession.cs" />
     <Compile Include="INosSessionClient.cs" />
