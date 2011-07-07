@@ -55,10 +55,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mappings\NosSessionMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\OpenSpacePlanner.Contracts\OpenSpacePlanner.Contracts.csproj">
+      <Project>{C1C767B9-D9E1-4EDA-B4B7-12984F641C8E}</Project>
+      <Name>OpenSpacePlanner.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenSpacePlanner.Domain\OpenSpacePlanner.Domain.csproj">
+      <Project>{D7E9A523-6976-42A3-8D75-B3A03B296F0E}</Project>
+      <Name>OpenSpacePlanner.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

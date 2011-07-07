@@ -7,8 +7,9 @@ namespace OpenSpacePlanner.Contracts {
 		DateTime End { get; }
 		string Title { get; }
 		string Owner { get; }
+		string OwnerTag { get; }
 		string Description { get; }
-		string CreatedOn { get; }
+		DateTime CreatedOn { get; }
 		string Room { get; }
 	}
 }

@@ -43,6 +43,7 @@
     <Compile Include="Entity.cs" />
     <Compile Include="NosSession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Room.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OpenSpacePlanner.Contracts\OpenSpacePlanner.Contracts.csproj">
