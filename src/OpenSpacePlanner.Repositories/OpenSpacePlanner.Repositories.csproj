@@ -46,6 +46,9 @@
     <Reference Include="NHibernate.ByteCode.Castle">
       <HintPath>..\packages\NHibernate.Castle.3.1.0.4000\lib\Net35\NHibernate.ByteCode.Castle.dll</HintPath>
     </Reference>
+    <Reference Include="PDMLab.Common">
+      <HintPath>..\packages\PDMLab.Common.0.1.50.0\lib\PDMLab.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -55,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttendeeRepository.cs" />
     <Compile Include="Mappings\AttendeeMap.cs" />
     <Compile Include="Mappings\NosSessionMap.cs" />
     <Compile Include="Mappings\RoomMap.cs" />
