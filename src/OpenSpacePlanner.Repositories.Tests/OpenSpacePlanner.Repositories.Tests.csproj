@@ -73,6 +73,7 @@
     <Compile Include="Mappings\AttendeeMapSpecs.cs" />
     <Compile Include="Mappings\NHibernateSqliteSessionProviderLoaded.cs" />
     <Compile Include="Mappings\NosSessionMapSpecs.cs" />
+    <Compile Include="Mappings\RoomMappingSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

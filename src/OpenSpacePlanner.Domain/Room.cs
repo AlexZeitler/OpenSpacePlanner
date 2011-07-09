@@ -2,7 +2,7 @@
 
 namespace OpenSpacePlanner.Domain {
 	public class Room : Entity, IRoom {
-		public string Name { get; private set; }
-		public int Capacity { get; private set; }
+		public virtual string Name { get; private set; }
+		public virtual int Capacity { get; private set; }
 	}
 }

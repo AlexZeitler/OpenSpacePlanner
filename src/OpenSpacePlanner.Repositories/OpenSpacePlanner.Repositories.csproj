@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Mappings\AttendeeMap.cs" />
     <Compile Include="Mappings\NosSessionMap.cs" />
+    <Compile Include="Mappings\RoomMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
