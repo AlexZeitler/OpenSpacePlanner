@@ -135,34 +135,4 @@ namespace OpenSpacePlanner.Repositories.Tests
 
 		It should_yield_session = () => { _actualSession.ShouldEqual(_expectedSession); };
 	}
-
-	public class NosSessionRepository : INosSessionRepository {
-		readonly INHibernateSessionProvider _nHibernateSessionProvider;
-
-		public NosSessionRepository(INHibernateSessionProvider nHibernateSessionProvider) {
-			_nHibernateSessionProvider = nHibernateSessionProvider;
-		}
-
-		public void Insert(INosSession nosSession) {
-			using(var session = _nHibernateSessionProvider.GetSession()) {
-				session.Save(nosSession);
-				session.Flush();
-			}
-		}
-
-		public IEnumerable<INosSession> Get() {
-			using(var session = _nHibernateSessionProvider.GetSession()) {
-				return session.CreateCriteria<NosSession>().List<NosSession>();
-			}
-		}
-
-		public INosSession Get(Guid id) {
-			using(var session = _nHibernateSessionProvider.GetSession()) {
-				return session.Get<NosSession>(id);
-			}
-		}
-	}
-
-	public interface INosSessionRepository {
-	}
 }

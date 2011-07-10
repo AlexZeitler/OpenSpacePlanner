@@ -45,6 +45,7 @@
     <Compile Include="IEntity.cs" />
     <Compile Include="INosSession.cs" />
     <Compile Include="INosSessionClient.cs" />
+    <Compile Include="INosSessionRepository.cs" />
     <Compile Include="IRoom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

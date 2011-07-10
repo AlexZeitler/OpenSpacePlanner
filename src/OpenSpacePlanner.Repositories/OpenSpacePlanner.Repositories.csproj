@@ -62,6 +62,7 @@
     <Compile Include="Mappings\AttendeeMap.cs" />
     <Compile Include="Mappings\NosSessionMap.cs" />
     <Compile Include="Mappings\RoomMap.cs" />
+    <Compile Include="NosSessionRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
