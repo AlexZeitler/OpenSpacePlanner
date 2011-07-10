@@ -1,4 +1,7 @@
+using System.Linq;
+using NHibernate.Linq;
 using OpenSpacePlanner.Contracts;
+using OpenSpacePlanner.Domain;
 using PDMLab.Common.NHibernate;
 
 namespace OpenSpacePlanner.Repositories {
@@ -13,6 +16,12 @@ namespace OpenSpacePlanner.Repositories {
 			using(var session = _nHibernateSessionProvider.GetSession()) {
 				session.Save(attendee);
 				session.Flush();
+			}
+		}
+
+		public IAttendee Get(string tag) {
+			using(var session = _nHibernateSessionProvider.GetSession()) {
+				return session.Query<Attendee>().Where(a => a.Tag == tag).FirstOrDefault();
 			}
 		}
 	}
