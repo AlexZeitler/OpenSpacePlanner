@@ -10,7 +10,7 @@ namespace OpenSpacePlanner.Repositories.Mappings {
 			Map(n => n.Description);
 			Map(n => n.Tag);
 			Map(n => n.Start);
-			Map(n => n.End);
+			Map(n => n.End).Column("[End]");
 			Map(n => n.Owner);
 			Map(n => n.OwnerTag);
 			Map(n => n.Room);

@@ -1,9 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.ServiceModel;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using FluentNHibernate.Cfg;
+using LightCore;
+using Microsoft.ApplicationServer.Http.Activation;
+using Microsoft.ApplicationServer.Http.Description;
+using OpenSpacePlanner.Contracts;
+using OpenSpacePlanner.Repositories;
+using OpenSpacePlanner.Repositories.Mappings;
+using PDMLab.Common.NHibernate;
 
 namespace OpenSpacePlanner.WebApi {
 	// Note: For instructions on enabling IIS6 or IIS7 classic mode, 
@@ -15,14 +25,18 @@ namespace OpenSpacePlanner.WebApi {
 		}
 
 		public static void RegisterRoutes(RouteCollection routes) {
-			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-			routes.MapRoute(
-				"Default", // Route name
-				"{controller}/{action}/{id}", // URL with parameters
-				new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
-			);
-
+			ContainerBuilder builder = new ContainerBuilder();
+			Action<MappingConfiguration> mappingsConfig = mappings=>mappings.FluentMappings.AddFromAssemblyOf<NosSessionMap>();
+			builder.Register<INHibernateSessionProvider, SqlServerConnectionStringNHibernateSessionProvider>().WithArguments(
+				"nosplanner", mappingsConfig);
+			builder.Register<INosSessionRepository, NosSessionRepository>();
+			IContainer container = builder.Build();
+			var configuration = 
+				HttpHostConfiguration
+					.Create()
+						.SetResourceFactory((serviceType, instanceContext, request) => container.Resolve(serviceType), null);
+			
+			routes.MapServiceRoute<SessionsResource>("sessions", configuration);
 		}
 
 		protected void Application_Start() {
