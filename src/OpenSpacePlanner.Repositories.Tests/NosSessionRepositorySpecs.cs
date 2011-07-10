@@ -104,6 +104,38 @@ namespace OpenSpacePlanner.Repositories.Tests
 		It should_yield_all_sessions = () => { _actualSessions.Count().ShouldEqual(3); };
 	}
 
+	public class Given_a_nos_session_repository_when_requesting_to_get_a_session_by_its_id : WithSubject<NosSessionRepository> {
+		static INosSession _actualSession;
+		static INosSession _expectedSession;
+
+		Establish context 
+			= () =>
+		                    	{
+		                    		With<NHibernateSqliteSessionProviderLoaded>();
+		                    		_expectedSession = new NosSession()
+		                    		                   	{
+															CreatedOn = DateTime.Now,
+															Title = "NHibernate in a NutShell",
+															Description = "Something on NHibernate",
+															Start = DateTime.Now + new TimeSpan(1, 0, 0),
+															End = DateTime.Now + new TimeSpan(2, 0, 0),
+															Owner = "Alexander Zeitler",
+															OwnerTag = "2arc",
+															Room = "3A",
+															Tag = "2seb"
+		                    		                   	};
+
+									using(var session = The<INHibernateSessionProvider>().GetSession()) {
+										session.Save(_expectedSession);
+										session.Flush();
+									}
+		                    	};
+
+		Because of = () => { _actualSession = Subject.Get(_expectedSession.Id); };
+
+		It should_yield_session = () => { _actualSession.ShouldEqual(_expectedSession); };
+	}
+
 	public class NosSessionRepository : INosSessionRepository {
 		readonly INHibernateSessionProvider _nHibernateSessionProvider;
 
@@ -121,6 +153,12 @@ namespace OpenSpacePlanner.Repositories.Tests
 		public IEnumerable<INosSession> Get() {
 			using(var session = _nHibernateSessionProvider.GetSession()) {
 				return session.CreateCriteria<NosSession>().List<NosSession>();
+			}
+		}
+
+		public INosSession Get(Guid id) {
+			using(var session = _nHibernateSessionProvider.GetSession()) {
+				return session.Get<NosSession>(id);
 			}
 		}
 	}
