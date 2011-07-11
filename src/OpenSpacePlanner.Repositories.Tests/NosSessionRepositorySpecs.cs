@@ -135,4 +135,42 @@ namespace OpenSpacePlanner.Repositories.Tests
 
 		It should_yield_session = () => { _actualSession.ShouldEqual(_expectedSession); };
 	}
+
+	public class Given_a_nos_session_repository_when_requesting_to_update_a_session : WithSubject<NosSessionRepository> {
+		static INosSession _expectedSession;
+		static INosSession _actualSession;
+
+		Establish context 
+			= () =>
+			  	{
+			  		With<NHibernateSqliteSessionProviderLoaded>();
+					_expectedSession = new NosSession() {
+						CreatedOn = DateTime.Now,
+						Title = "NHibernate in a NutShell",
+						Description = "Something on NHibernate",
+						Owner = "Alexander Zeitler",
+						OwnerTag = "2arc",
+						Tag = "2seb"
+					};
+
+					using(var session = The<INHibernateSessionProvider>().GetSession()) {
+						session.Save(_expectedSession);
+						session.Flush();
+					}
+
+			  		_expectedSession.Start = DateTime.Now + new TimeSpan(1, 0, 0);
+			  		_expectedSession.End = DateTime.Now + new TimeSpan(2, 0, 0);
+			  		_expectedSession.Room = "3A";
+			  	};
+
+		Because of = () =>
+		             	{
+		             		Subject.Update(_expectedSession);
+							using(var session = The<INHibernateSessionProvider>().GetSession()) {
+								_actualSession = session.Get<NosSession>(_expectedSession.Id);
+							}
+		             	};
+
+		It should_update_session = () => { _actualSession.ShouldEqual(_expectedSession); };
+	}
 }

@@ -6,5 +6,6 @@ namespace OpenSpacePlanner.Contracts {
 		void Insert(INosSession nosSession);
 		IEnumerable<INosSession> Get();
 		INosSession Get(Guid id);
+		void Update(INosSession nosSession);
 	}
 }

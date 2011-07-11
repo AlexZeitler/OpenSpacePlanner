@@ -30,5 +30,11 @@ namespace OpenSpacePlanner.Repositories {
 				return session.Get<NosSession>(id);
 			}
 		}
+
+		public void Update(INosSession nosSession) {
+			using(var session = _nHibernateSessionProvider.GetSession()) {
+				session.Update(nosSession);
+			}
+		}
 	}
 }
