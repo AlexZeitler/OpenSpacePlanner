@@ -34,6 +34,7 @@ namespace OpenSpacePlanner.Repositories {
 		public void Update(INosSession nosSession) {
 			using(var session = _nHibernateSessionProvider.GetSession()) {
 				session.Update(nosSession);
+				session.Flush();
 			}
 		}
 	}
