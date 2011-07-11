@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D7E9A523-6976-42A3-8D75-B3A03B296F0E}</ProjectGuid>
+    <ProjectGuid>{FE7078A5-4BA4-4B62-8EBE-C396CD0FCF98}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OpenSpacePlanner.Domain</RootNamespace>
-    <AssemblyName>OpenSpacePlanner.Domain</AssemblyName>
+    <RootNamespace>OpenSpacePlanner.Domain.Tests</RootNamespace>
+    <AssemblyName>OpenSpacePlanner.Domain.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,6 +31,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Machine.Fakes">
+      <HintPath>..\packages\Machine.Fakes.0.2.3.3\lib\Machine.Fakes.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Fakes.Adapters.RhinoMocks">
+      <HintPath>..\packages\Machine.Fakes.RhinoMocks.0.2.3.3\lib\Machine.Fakes.Adapters.RhinoMocks.dll</HintPath>
+    </Reference>
+    <Reference Include="Machine.Specifications">
+      <HintPath>..\packages\Machine.Specifications.0.4.13.0\lib\Machine.Specifications.dll</HintPath>
+    </Reference>
+    <Reference Include="Rhino.Mocks">
+      <HintPath>..\packages\RhinoMocks.3.6\lib\Rhino.Mocks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,18 +52,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attendee.cs" />
-    <Compile Include="Entity.cs" />
-    <Compile Include="NosSession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Room.cs" />
-    <Compile Include="TaggedEntity.cs" />
+    <Compile Include="TaggendEntitySpecs.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OpenSpacePlanner.Contracts\OpenSpacePlanner.Contracts.csproj">
-      <Project>{C1C767B9-D9E1-4EDA-B4B7-12984F641C8E}</Project>
-      <Name>OpenSpacePlanner.Contracts</Name>
+    <ProjectReference Include="..\OpenSpacePlanner.Domain\OpenSpacePlanner.Domain.csproj">
+      <Project>{D7E9A523-6976-42A3-8D75-B3A03B296F0E}</Project>
+      <Name>OpenSpacePlanner.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
