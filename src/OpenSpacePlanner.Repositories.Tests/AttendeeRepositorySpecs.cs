@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Machine.Fakes;
 using Machine.Specifications;
 using OpenSpacePlanner.Contracts;
@@ -73,5 +75,27 @@ namespace OpenSpacePlanner.Repositories.Tests {
 		             	};
 
 		It should_yield_attendee = () => { _actualAttendee.ShouldEqual(_expectedAttendee); };
+	}
+
+	public class Given_a_attendee_repository_when_requesting_to_get_all_attendees : WithSubject<AttendeeRepository> {
+		static IEnumerable<IAttendee> _actualAttendees;
+
+		Establish context = () =>
+		                    	{
+		                    		With<NHibernateSqliteSessionProviderLoaded>();
+									IAttendee attendee1 = new Attendee() { FirstName = "Alexander", LastName = "Zeitler", Tag = "2arc" };
+									IAttendee attendee2 = new Attendee() { FirstName = "Frank", LastName = "Pfattheicher", Tag = "3fra" };
+									IAttendee attendee3 = new Attendee() { FirstName = "Ralf", LastName = "Schoch", Tag = "arh1" };
+									using (var session = The<INHibernateSessionProvider>().GetSession()) {
+										session.Save(attendee1);
+										session.Save(attendee2);
+										session.Save(attendee3);
+										session.Flush();
+									}
+		                    	};
+
+		Because of = () => { _actualAttendees = Subject.Get(); };
+
+		It should_yield_all_attendees = () => { _actualAttendees.Count().ShouldEqual(3); };
 	}
 }
