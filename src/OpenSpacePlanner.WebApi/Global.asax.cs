@@ -30,6 +30,7 @@ namespace OpenSpacePlanner.WebApi {
 			builder.Register<INHibernateSessionProvider, SqlServerConnectionStringNHibernateSessionProvider>().WithArguments(
 				"nosplanner", mappingsConfig);
 			builder.Register<INosSessionRepository, NosSessionRepository>();
+			builder.Register<IAttendeeRepository, AttendeeRepository>();
 			IContainer container = builder.Build();
 			var configuration = 
 				HttpHostConfiguration
@@ -38,6 +39,7 @@ namespace OpenSpacePlanner.WebApi {
 			
 			routes.MapServiceRoute<SessionsResource>("sessions", configuration);
 			routes.MapServiceRoute<SessionResource>("session", configuration);
+			routes.MapServiceRoute<AttendeesResource>("attendees",configuration);
 		}
 
 		protected void Application_Start() {
