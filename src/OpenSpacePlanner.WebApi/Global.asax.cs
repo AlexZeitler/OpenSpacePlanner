@@ -37,6 +37,7 @@ namespace OpenSpacePlanner.WebApi {
 						.SetResourceFactory((serviceType, instanceContext, request) => container.Resolve(serviceType), null);
 			
 			routes.MapServiceRoute<SessionsResource>("sessions", configuration);
+			routes.MapServiceRoute<SessionResource>("session", configuration);
 		}
 
 		protected void Application_Start() {
