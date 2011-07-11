@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using NHibernate.Linq;
 using OpenSpacePlanner.Contracts;
@@ -22,6 +23,12 @@ namespace OpenSpacePlanner.Repositories {
 		public IAttendee Get(string tag) {
 			using(var session = _nHibernateSessionProvider.GetSession()) {
 				return session.Query<Attendee>().Where(a => a.Tag == tag).FirstOrDefault();
+			}
+		}
+
+		public IAttendee Get(Guid id) {
+			using(var session = _nHibernateSessionProvider.GetSession()) {
+				return session.Get<Attendee>(id);
 			}
 		}
 	}

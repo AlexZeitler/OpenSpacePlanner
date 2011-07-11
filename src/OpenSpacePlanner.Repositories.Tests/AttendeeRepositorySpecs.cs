@@ -52,4 +52,26 @@ namespace OpenSpacePlanner.Repositories.Tests {
 
 		It should_yield_attendee = () => { _actualAttendee.ShouldEqual(_expectedAttendee); };
 	}
+
+	public class Given_a_attendee_repository_when_requesting_to_get_an_attendee_by_its_id : WithSubject<AttendeeRepository> {
+		static IAttendee _expectedAttendee;
+		static IAttendee _actualAttendee;
+
+		Establish context = () =>
+		                    	{
+		                    		With<NHibernateSqliteSessionProviderLoaded>();
+									_expectedAttendee = new Attendee() { FirstName = "Alexander", LastName = "Zeitler", Tag = "2arc" };
+									using(var session = The<INHibernateSessionProvider>().GetSession()) {
+										session.Save(_expectedAttendee);
+										session.Flush();
+									}
+		                    	};
+
+		Because of = () =>
+		             	{
+		             		_actualAttendee = Subject.Get(_expectedAttendee.Id);
+		             	};
+
+		It should_yield_attendee = () => { _actualAttendee.ShouldEqual(_expectedAttendee); };
+	}
 }
