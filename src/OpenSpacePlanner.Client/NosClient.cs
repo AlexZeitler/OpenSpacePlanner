@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Web.Script.Serialization;
 using Microsoft.ApplicationServer.Http;
+using Microsoft.ApplicationServer.Http.Dispatcher;
 using OpenSpacePlanner.Contracts;
 using OpenSpacePlanner.Domain;
 
@@ -63,5 +64,9 @@ namespace OpenSpacePlanner.Client {
 				return new List<INosSession>(sessions);
 			}
 		}
+
+
 	}
+
+	
 }

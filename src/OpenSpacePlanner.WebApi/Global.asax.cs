@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.ServiceModel;
@@ -10,6 +11,7 @@ using FluentNHibernate.Cfg;
 using LightCore;
 using Microsoft.ApplicationServer.Http.Activation;
 using Microsoft.ApplicationServer.Http.Description;
+using Microsoft.ApplicationServer.Http.Dispatcher;
 using OpenSpacePlanner.Contracts;
 using OpenSpacePlanner.Repositories;
 using OpenSpacePlanner.Repositories.Mappings;
@@ -35,7 +37,8 @@ namespace OpenSpacePlanner.WebApi {
 			var configuration = 
 				HttpHostConfiguration
 					.Create()
-						.SetResourceFactory((serviceType, instanceContext, request) => container.Resolve(serviceType), null);
+						.SetResourceFactory((serviceType, instanceContext, request) => container.Resolve(serviceType), null)
+						.SetErrorHandler<ContactManagerErrorHandler>();
 			
 			routes.MapServiceRoute<SessionsResource>("sessions", configuration);
 			routes.MapServiceRoute<SessionResource>("session", configuration);
@@ -43,10 +46,31 @@ namespace OpenSpacePlanner.WebApi {
 		}
 
 		protected void Application_Start() {
-			AreaRegistration.RegisterAllAreas();
+			//AreaRegistration.RegisterAllAreas();
 
-			RegisterGlobalFilters(GlobalFilters.Filters);
+			//RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
+		}
+	}
+
+	public class ContactManagerErrorHandler : HttpErrorHandler {
+		protected override bool OnHandleError(Exception error) {
+			Trace.Listeners.Add(new TextWriterTraceListener(@"C:\Webs\NOSSued\OpenSpacePlanner\trace.log"));
+			Trace.WriteLine(DateTime.Now);
+			Trace.WriteLine(error.ToString());
+			Trace.Flush();
+			return false;
+		}
+
+		protected override System.Net.Http.HttpResponseMessage OnProvideResponse(Exception error) {
+			Trace.Listeners.Add(new TextWriterTraceListener(@"C:\Webs\NOSSued\OpenSpacePlanner\trace.log"));
+			Trace.WriteLine(DateTime.Now);
+			Trace.WriteLine(error.ToString());
+			Trace.Flush();
+			var exception = (HttpResponseException)error;
+			var response = exception.Response;
+			response.ReasonPhrase = "[Handled]" + response.ReasonPhrase;
+			return response;
 		}
 	}
 }

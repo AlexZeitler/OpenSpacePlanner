@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.ServiceModel;
@@ -19,7 +21,16 @@ namespace OpenSpacePlanner.WebApi {
 
 		[WebGet(UriTemplate = "")]
 		public List<NosSession> Get() {
-			return new List<NosSession>(_sessionRepository.Get() as IEnumerable<NosSession>);
+			try {
+				return new List<NosSession>(_sessionRepository.Get() as IEnumerable<NosSession>);
+			}
+			catch (Exception e) {
+				Trace.Listeners.Add(new TextWriterTraceListener(@"C:\Webs\NOSSued\OpenSpacePlanner\trace.log"));
+				Trace.WriteLine(DateTime.Now);
+				Trace.WriteLine(e.ToString());
+				Trace.Flush();
+				return null;
+			}
 		}
 
 		[WebInvoke(UriTemplate = "", Method = "POST")]
@@ -37,8 +48,21 @@ namespace OpenSpacePlanner.WebApi {
 
 		[WebGet(UriTemplate = "unplanned")]
 		public List<NosSession> GetUnPlannedSessions() {
-			IList<NosSession> plannedSessions = ConvertToListOf<NosSession>(_sessionRepository.GetUnPlannedSessions().ToList());
-			return (List<NosSession>)plannedSessions;
+			try {
+				Trace.Listeners.Add(new TextWriterTraceListener(@"C:\Webs\NOSSued\OpenSpacePlanner\trace.log"));
+				Trace.WriteLine(DateTime.Now);
+				Trace.Flush();			
+				IList<NosSession> plannedSessions = ConvertToListOf<NosSession>(_sessionRepository.GetUnPlannedSessions().ToList());
+				return (List<NosSession>)plannedSessions;
+
+			}
+			catch (Exception e) {
+				Trace.Listeners.Add(new TextWriterTraceListener(@"C:\Webs\NOSSued\OpenSpacePlanner\trace.log"));
+				Trace.WriteLine(DateTime.Now);
+				Trace.WriteLine(e.ToString());
+				Trace.Flush();
+				return null;
+			}
 		}
 
 		public static IList<T> ConvertToListOf<T>(IList iList) {
