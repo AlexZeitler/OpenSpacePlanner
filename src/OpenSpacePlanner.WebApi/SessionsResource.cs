@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.ServiceModel;
@@ -27,5 +28,21 @@ namespace OpenSpacePlanner.WebApi {
 			nosSession = _sessionRepository.Get(nosSession.Id) as NosSession;
 			return new HttpResponseMessage<NosSession>(nosSession, HttpStatusCode.Created);
 		}
+
+		[WebGet(UriTemplate = "planned")]
+		public List<NosSession> GetPlannedSessions() {
+			IList<NosSession> plannedSessions = ConvertToListOf<NosSession>(_sessionRepository.GetPlannedSessions().ToList());
+			return (List<NosSession>) plannedSessions;
+		}
+
+		public static IList<T> ConvertToListOf<T>(IList iList) {
+			IList<T> result = new List<T>();
+			foreach (T value in iList)
+				result.Add(value);
+
+			return result;
+		}
 	}
+
+
 }

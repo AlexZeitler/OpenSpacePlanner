@@ -40,7 +40,7 @@ namespace OpenSpacePlanner.Repositories {
 			}
 		}
 
-		public IEnumerable<INosSession> GetPlannedSessions() {
+		public IList<INosSession> GetPlannedSessions() {
 			using(var session = _nHibernateSessionProvider.GetSession()) {
 				 return new List<INosSession>(session.Query<NosSession>().Where(s => s.Room != string.Empty));
 			}
