@@ -35,6 +35,12 @@ namespace OpenSpacePlanner.WebApi {
 			return (List<NosSession>) plannedSessions;
 		}
 
+		[WebGet(UriTemplate = "unplanned")]
+		public List<NosSession> GetUnPlannedSessions() {
+			IList<NosSession> plannedSessions = ConvertToListOf<NosSession>(_sessionRepository.GetUnPlannedSessions().ToList());
+			return (List<NosSession>)plannedSessions;
+		}
+
 		public static IList<T> ConvertToListOf<T>(IList iList) {
 			IList<T> result = new List<T>();
 			foreach (T value in iList)
