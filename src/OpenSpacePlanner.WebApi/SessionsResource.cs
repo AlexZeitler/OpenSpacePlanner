@@ -25,10 +25,10 @@ namespace OpenSpacePlanner.WebApi {
 				return new List<NosSession>(_sessionRepository.Get() as IEnumerable<NosSession>);
 			}
 			catch (Exception e) {
-				Trace.Listeners.Add(new TextWriterTraceListener(@"C:\Webs\NOSSued\OpenSpacePlanner\trace.log"));
-				Trace.WriteLine(DateTime.Now);
-				Trace.WriteLine(e.ToString());
-				Trace.Flush();
+				//Trace.Listeners.Add(new TextWriterTraceListener(@"C:\Webs\NOSSued\OpenSpacePlanner\trace.log"));
+				//Trace.WriteLine(DateTime.Now);
+				//Trace.WriteLine(e.ToString());
+				//Trace.Flush();
 				return null;
 			}
 		}
@@ -49,18 +49,18 @@ namespace OpenSpacePlanner.WebApi {
 		[WebGet(UriTemplate = "unplanned")]
 		public List<NosSession> GetUnPlannedSessions() {
 			try {
-				Trace.Listeners.Add(new TextWriterTraceListener(@"C:\Webs\NOSSued\OpenSpacePlanner\trace.log"));
-				Trace.WriteLine(DateTime.Now);
-				Trace.Flush();			
+				//Trace.Listeners.Add(new TextWriterTraceListener(@"C:\Webs\NOSSued\OpenSpacePlanner\trace.log"));
+				//Trace.WriteLine(DateTime.Now);
+				//Trace.Flush();			
 				IList<NosSession> plannedSessions = ConvertToListOf<NosSession>(_sessionRepository.GetUnPlannedSessions().ToList());
 				return (List<NosSession>)plannedSessions;
 
 			}
 			catch (Exception e) {
-				Trace.Listeners.Add(new TextWriterTraceListener(@"C:\Webs\NOSSued\OpenSpacePlanner\trace.log"));
-				Trace.WriteLine(DateTime.Now);
-				Trace.WriteLine(e.ToString());
-				Trace.Flush();
+				//Trace.Listeners.Add(new TextWriterTraceListener(@"C:\Webs\NOSSued\OpenSpacePlanner\trace.log"));
+				//Trace.WriteLine(DateTime.Now);
+				//Trace.WriteLine(e.ToString());
+				//Trace.Flush();
 				return null;
 			}
 		}

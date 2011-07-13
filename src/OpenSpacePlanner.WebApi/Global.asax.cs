@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using FluentNHibernate.Cfg;
 using LightCore;
+using LightCore.Lifecycle;
 using Microsoft.ApplicationServer.Http.Activation;
 using Microsoft.ApplicationServer.Http.Description;
 using Microsoft.ApplicationServer.Http.Dispatcher;
@@ -30,9 +31,9 @@ namespace OpenSpacePlanner.WebApi {
 			ContainerBuilder builder = new ContainerBuilder();
 			Action<MappingConfiguration> mappingsConfig = mappings=>mappings.FluentMappings.AddFromAssemblyOf<NosSessionMap>();
 			builder.Register<INHibernateSessionProvider, SqlServerConnectionStringNHibernateSessionProvider>().WithArguments(
-				"nosplanner", mappingsConfig);
-			builder.Register<INosSessionRepository, NosSessionRepository>();
-			builder.Register<IAttendeeRepository, AttendeeRepository>();
+				"nosplanner", mappingsConfig).ControlledBy<SingletonLifecycle>();
+			builder.Register<INosSessionRepository, NosSessionRepository>().ControlledBy<SingletonLifecycle>();
+			builder.Register<IAttendeeRepository, AttendeeRepository>().ControlledBy<SingletonLifecycle>();
 			IContainer container = builder.Build();
 			var configuration = 
 				HttpHostConfiguration
@@ -55,10 +56,10 @@ namespace OpenSpacePlanner.WebApi {
 
 	public class ContactManagerErrorHandler : HttpErrorHandler {
 		protected override bool OnHandleError(Exception error) {
-			Trace.Listeners.Add(new TextWriterTraceListener(@"C:\Webs\NOSSued\OpenSpacePlanner\trace.log"));
-			Trace.WriteLine(DateTime.Now);
-			Trace.WriteLine(error.ToString());
-			Trace.Flush();
+			//Trace.Listeners.Add(new TextWriterTraceListener(@"C:\Webs\NOSSued\OpenSpacePlanner\trace.log"));
+			//Trace.WriteLine(DateTime.Now);
+			//Trace.WriteLine(error.ToString());
+			//Trace.Flush();
 			return false;
 		}
 

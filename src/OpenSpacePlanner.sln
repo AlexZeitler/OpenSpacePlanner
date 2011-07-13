@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSpacePlanner.Client", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSpacePlanner.TestConsole", "OpenSpacePlanner.TestConsole\OpenSpacePlanner.TestConsole.csproj", "{094EB347-27D0-4550-A052-EE525AF204A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSpacePlanner.Web", "OpenSpacePlanner.Web\OpenSpacePlanner.Web.csproj", "{F9E4B213-9F46-4389-A010-1F740C4241D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +109,16 @@ Global
 		{094EB347-27D0-4550-A052-EE525AF204A1}.Release|Mixed Platforms.Build.0 = Release|x86
 		{094EB347-27D0-4550-A052-EE525AF204A1}.Release|x86.ActiveCfg = Release|x86
 		{094EB347-27D0-4550-A052-EE525AF204A1}.Release|x86.Build.0 = Release|x86
+		{F9E4B213-9F46-4389-A010-1F740C4241D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9E4B213-9F46-4389-A010-1F740C4241D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9E4B213-9F46-4389-A010-1F740C4241D8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F9E4B213-9F46-4389-A010-1F740C4241D8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F9E4B213-9F46-4389-A010-1F740C4241D8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F9E4B213-9F46-4389-A010-1F740C4241D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9E4B213-9F46-4389-A010-1F740C4241D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9E4B213-9F46-4389-A010-1F740C4241D8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F9E4B213-9F46-4389-A010-1F740C4241D8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F9E4B213-9F46-4389-A010-1F740C4241D8}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
