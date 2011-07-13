@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using NHibernate.Linq;
 using OpenSpacePlanner.Contracts;
 using OpenSpacePlanner.Domain;
 using PDMLab.Common.NHibernate;
@@ -35,6 +37,12 @@ namespace OpenSpacePlanner.Repositories {
 			using(var session = _nHibernateSessionProvider.GetSession()) {
 				session.Update(nosSession);
 				session.Flush();
+			}
+		}
+
+		public IEnumerable<INosSession> GetPlannedSessions() {
+			using(var session = _nHibernateSessionProvider.GetSession()) {
+				 return new List<INosSession>(session.Query<NosSession>().Where(s => s.Room != string.Empty));
 			}
 		}
 	}

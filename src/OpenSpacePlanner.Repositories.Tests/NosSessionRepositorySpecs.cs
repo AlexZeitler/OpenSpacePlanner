@@ -173,4 +173,53 @@ namespace OpenSpacePlanner.Repositories.Tests
 
 		It should_update_session = () => { _actualSession.ShouldEqual(_expectedSession); };
 	}
+
+	public class Given_a_nos_session_repository_when_requesting_all_planned_sessions : WithSubject<NosSessionRepository> {
+		static IEnumerable<INosSession> _actualSessions;
+
+		Establish context = () =>
+		                    	{
+		                    		With<NHibernateSqliteSessionProviderLoaded>();
+		                    		INosSession unplannedSession = new NosSession()
+		                    		                       	{
+		                    		                       		CreatedOn = DateTime.Now,
+		                    		                       		Title = "NHibernate in a NutShell",
+		                    		                       		Description = "Something on NHibernate",
+		                    		                       		Owner = "Alexander Zeitler",
+		                    		                       		OwnerTag = "2arc",
+		                    		                       		Tag = "2arc1c"
+		                    		                       	};
+									INosSession plannedSession1 = new NosSession() {
+										CreatedOn = DateTime.Now,
+										Title = "REST in a NutShell",
+										Description = "Something on REST",
+										Owner = "Alexander Zeitler",
+										OwnerTag = "2arc1c",
+										Start = DateTime.Now,
+										End = DateTime.Now + new TimeSpan(1,0,0),
+										Room = "Raum 3"
+									};
+									INosSession plannedSession2 = new NosSession() {
+										CreatedOn = DateTime.Now,
+										Title = "MEF in a NutShell",
+										Description = "Something on MEF",
+										Owner = "Alexander Zeitler",
+										OwnerTag = "2arc1c",
+										Start = DateTime.Now,
+										End = DateTime.Now + new TimeSpan(1, 0, 0),
+										Room = "Raum 4"
+									};
+
+									using(var session = The<INHibernateSessionProvider>().GetSession()) {
+										session.Save(unplannedSession);
+										session.Save(plannedSession1);
+										session.Save(plannedSession2);
+										session.Flush();
+									}
+		                    	};
+
+		Because of = () => { _actualSessions = Subject.GetPlannedSessions(); };
+
+		It should_yield_all_planned_sessions = () => { _actualSessions.Count().ShouldEqual(2); };
+	}
 }
