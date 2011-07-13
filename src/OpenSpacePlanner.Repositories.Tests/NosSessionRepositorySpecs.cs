@@ -222,4 +222,49 @@ namespace OpenSpacePlanner.Repositories.Tests
 
 		It should_yield_all_planned_sessions = () => { _actualSessions.Count().ShouldEqual(2); };
 	}
+
+	public class Given_a_nos_session_repository_when_requesting_all_unplanned_sessions : WithSubject<NosSessionRepository> {
+		static IList<INosSession> _unplannedSessions;
+		Establish context 
+			= () =>
+			  	{
+			  		With<NHibernateSqliteSessionProviderLoaded>();
+					INosSession unplannedSession = new NosSession() {
+						CreatedOn = DateTime.Now,
+						Title = "NHibernate in a NutShell",
+						Description = "Something on NHibernate",
+						Owner = "Alexander Zeitler",
+						OwnerTag = "2arc",
+						Tag = "2arc1c",
+						Start = DateTime.Now,
+						End = DateTime.Now + new TimeSpan(1, 0, 0),
+						Room = "Raum 3"
+					};
+					INosSession plannedSession1 = new NosSession() {
+						CreatedOn = DateTime.Now,
+						Title = "REST in a NutShell",
+						Description = "Something on REST",
+						Owner = "Alexander Zeitler",
+						OwnerTag = "2arc1c"
+					};
+					INosSession plannedSession2 = new NosSession() {
+						CreatedOn = DateTime.Now,
+						Title = "MEF in a NutShell",
+						Description = "Something on MEF",
+						Owner = "Alexander Zeitler",
+						OwnerTag = "2arc1c"
+					};
+
+					using (var session = The<INHibernateSessionProvider>().GetSession()) {
+						session.Save(unplannedSession);
+						session.Save(plannedSession1);
+						session.Save(plannedSession2);
+						session.Flush();
+					}
+			  	};
+
+		Because of = () => { _unplannedSessions = Subject.GetUnPlannedSessions(); };
+
+		It should_yield_all_unplanned_sessions = () => { _unplannedSessions.Count().ShouldEqual(2); };
+	}
 }

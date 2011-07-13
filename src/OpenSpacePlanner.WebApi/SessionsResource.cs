@@ -39,7 +39,6 @@ namespace OpenSpacePlanner.WebApi {
 			IList<T> result = new List<T>();
 			foreach (T value in iList)
 				result.Add(value);
-
 			return result;
 		}
 	}

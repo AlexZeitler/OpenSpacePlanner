@@ -15,34 +15,40 @@ namespace OpenSpacePlanner.Repositories {
 		}
 
 		public void Insert(INosSession nosSession) {
-			using(var session = _nHibernateSessionProvider.GetSession()) {
+			using (var session = _nHibernateSessionProvider.GetSession()) {
 				session.Save(nosSession);
 				session.Flush();
 			}
 		}
 
 		public IEnumerable<INosSession> Get() {
-			using(var session = _nHibernateSessionProvider.GetSession()) {
+			using (var session = _nHibernateSessionProvider.GetSession()) {
 				return session.CreateCriteria<NosSession>().List<NosSession>();
 			}
 		}
 
 		public INosSession Get(Guid id) {
-			using(var session = _nHibernateSessionProvider.GetSession()) {
+			using (var session = _nHibernateSessionProvider.GetSession()) {
 				return session.Get<NosSession>(id);
 			}
 		}
 
 		public void Update(INosSession nosSession) {
-			using(var session = _nHibernateSessionProvider.GetSession()) {
+			using (var session = _nHibernateSessionProvider.GetSession()) {
 				session.Update(nosSession);
 				session.Flush();
 			}
 		}
 
 		public IList<INosSession> GetPlannedSessions() {
-			using(var session = _nHibernateSessionProvider.GetSession()) {
-				 return new List<INosSession>(session.Query<NosSession>().Where(s => s.Room != string.Empty));
+			using (var session = _nHibernateSessionProvider.GetSession()) {
+				return new List<INosSession>(session.Query<NosSession>().Where(s => s.Room != string.Empty));
+			}
+		}
+
+		public IList<INosSession> GetUnPlannedSessions() {
+			using (var session = _nHibernateSessionProvider.GetSession()) {
+				return new List<INosSession>(session.Query<NosSession>().Where(s => s.Room == string.Empty || s.Room == null));
 			}
 		}
 	}
