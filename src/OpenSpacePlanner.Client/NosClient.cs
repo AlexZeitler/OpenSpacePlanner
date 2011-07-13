@@ -31,7 +31,7 @@ namespace OpenSpacePlanner.Client {
 		public INosSession UpdateSession(INosSession nosSession) {
 			using(HttpClient httpClient = new HttpClient(_baseAddress)) {
 				httpClient.DefaultRequestHeaders.Accept.Add(_json);
-				string sessionUri = string.Format("session/{0}", nosSession.Id);
+				string sessionUri = "session";
 
 				JavaScriptSerializer jsonSerializer = new JavaScriptSerializer();
 				byte[] customerBytes = Encoding.UTF8.GetBytes(jsonSerializer.Serialize(nosSession));
@@ -46,6 +46,22 @@ namespace OpenSpacePlanner.Client {
 			}
 		}
 
+		public IList<INosSession> GetUnplannedSessions() {
+			using (HttpClient httpClient = new HttpClient(_baseAddress)) {
+				httpClient.DefaultRequestHeaders.Accept.Add(_json);
+				HttpResponseMessage response = httpClient.Get("sessions/unplanned");
+				List<NosSession> sessions = response.Content.ReadAs<List<NosSession>>(new List<MediaTypeFormatter>() { new JsonMediaTypeFormatter() });
+				return new List<INosSession>(sessions);
+			}
+		}
 
+		public IList<INosSession> GetPlannedSessions() {
+			using (HttpClient httpClient = new HttpClient(_baseAddress)) {
+				httpClient.DefaultRequestHeaders.Accept.Add(_json);
+				HttpResponseMessage response = httpClient.Get("sessions/planned");
+				List<NosSession> sessions = response.Content.ReadAs<List<NosSession>>(new List<MediaTypeFormatter>() { new JsonMediaTypeFormatter() });
+				return new List<INosSession>(sessions);
+			}
+		}
 	}
 }
