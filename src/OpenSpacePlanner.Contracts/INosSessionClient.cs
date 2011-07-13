@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 
 namespace OpenSpacePlanner.Contracts {
-	public interface INosSessionClient {
+	public interface INosClient {
 		IList<INosSession> GetAllSessions();
-		IList<IRoom> GetAllRooms();
 		void UpdateSession(INosSession nosSession);
 	}
 }
