@@ -15,7 +15,7 @@ namespace OpenSpacePlanner.WebApi {
 			_sessionRepository = sessionRepository;
 		}
 
-		[WebInvoke(UriTemplate = "{id}", Method = "PUT")]
+		[WebInvoke(UriTemplate = "", Method = "PUT")]
 		public HttpResponseMessage<NosSession> Put(NosSession session, HttpRequestMessage<NosSession> request) {
 			_sessionRepository.Update(session);
 			session = _sessionRepository.Get(session.Id) as NosSession;
