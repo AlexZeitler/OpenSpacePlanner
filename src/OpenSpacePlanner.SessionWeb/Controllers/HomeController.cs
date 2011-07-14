@@ -31,5 +31,15 @@ namespace OpenSpacePlanner.SessionWeb.Controllers {
 			var model = _nosClient.GetPlannedSessions();
 			return PartialView("Sessions", model);
 		}
+
+		public ActionResult Samstag() {
+			var model = _nosClient.GetPlannedSessions();
+			return PartialView("Samstag", model);
+		}
+
+		public ActionResult Sonntag() {
+			var model = _nosClient.GetPlannedSessions();
+			return PartialView("Sonntag", model);
+		}
 	}
 }

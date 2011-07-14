@@ -1,0 +1,107 @@
+﻿@using OpenSpacePlanner.Contracts
+@model IList<INosSession>
+
+<tr>
+		<td>
+			10:00 - 10:45
+		</td>
+		<td colspan="4" style="">
+		<table class="innertable">
+			<tr>
+				<td style="text-align: right;border:none"><img src="/content/images/attendees.png" /></td>
+				<td style="border:none"><h2>Themenfindung</h2></td>
+				<td style="text-align: left;border:none"><img src="/content/images/attendees.png"/></td>
+			</tr>
+		</table>
+			
+		</td>
+	</tr>
+	<tr>
+		<td>
+			10:00 - 10:45
+		</td>
+		<td>
+			@Html.Partial("Session", Model, new ViewDataDictionary { new KeyValuePair<string, object>("session", "Session 1.6") })
+		</td>
+		<td>
+			@Html.Partial("Session", Model, new ViewDataDictionary { new KeyValuePair<string, object>("session", "Session 2.6") })
+		</td>
+		<td>
+			@Html.Partial("Session", Model, new ViewDataDictionary { new KeyValuePair<string, object>("session", "Session 3.6") })
+		</td>
+		<td>
+			@Html.Partial("Session", Model, new ViewDataDictionary { new KeyValuePair<string, object>("session", "Session 4.6") })
+		</td>
+	</tr>
+	<tr>
+		<td>
+		</td>
+		<td colspan="4" style="">
+			Raumwechsel
+		</td>
+	</tr>
+	<tr>
+		<td>
+			11:00 - 11:45
+		</td>
+		<td>
+			@Html.Partial("Session", Model, new ViewDataDictionary { new KeyValuePair<string, object>("session", "Session 1.7") })
+		</td>
+		<td>
+			@Html.Partial("Session", Model, new ViewDataDictionary { new KeyValuePair<string, object>("session", "Session 2.7") })
+		</td>
+		<td>
+			@Html.Partial("Session", Model, new ViewDataDictionary { new KeyValuePair<string, object>("session", "Session 3.7") })
+		</td>
+		<td>
+			@Html.Partial("Session", Model, new ViewDataDictionary { new KeyValuePair<string, object>("session", "Session 4.7") })
+		</td>
+	</tr>
+	<tr>
+		<td>
+		</td>
+		<td colspan="4" style="">
+			Raumwechsel
+		</td>
+	</tr>
+	<tr>
+		<td>
+			12:00 - 12:45
+		</td>
+		<td>
+			@Html.Partial("Session", Model, new ViewDataDictionary { new KeyValuePair<string, object>("session", "Session 1.8") })
+		</td>
+		<td>
+			@Html.Partial("Session", Model, new ViewDataDictionary { new KeyValuePair<string, object>("session", "Session 2.8") })
+		</td>
+		<td>
+			@Html.Partial("Session", Model, new ViewDataDictionary { new KeyValuePair<string, object>("session", "Session 3.8") })
+		</td>
+		<td>
+			@Html.Partial("Session", Model, new ViewDataDictionary { new KeyValuePair<string, object>("session", "Session 4.8") })
+		</td>
+	</tr>
+	<tr>
+		<td>
+		</td>
+		<td colspan="4" style="">
+			Mittagspause
+		</td>
+	</tr>
+	<tr>
+		<td>
+			14:00 - 14:45
+		</td>
+		<td>
+			@Html.Partial("Session", Model, new ViewDataDictionary { new KeyValuePair<string, object>("session", "Session 1.9") })
+		</td>
+		<td>
+			@Html.Partial("Session", Model, new ViewDataDictionary { new KeyValuePair<string, object>("session", "Session 2.9") })
+		</td>
+		<td>
+			@Html.Partial("Session", Model, new ViewDataDictionary { new KeyValuePair<string, object>("session", "Session 3.9") })
+		</td>
+		<td>
+			@Html.Partial("Session", Model, new ViewDataDictionary { new KeyValuePair<string, object>("session", "Session 4.9") })
+		</td>
+	</tr>
