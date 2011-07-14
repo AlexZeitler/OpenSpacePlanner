@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSpacePlanner.TestConsol
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSpacePlanner.WebAdmin", "OpenSpacePlanner.WebAdmin\OpenSpacePlanner.WebAdmin.csproj", "{008531FB-84AD-4342-8BC5-F94D1B16CA04}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSpacePlanner.SessionWeb", "OpenSpacePlanner.SessionWeb\OpenSpacePlanner.SessionWeb.csproj", "{5C83D844-EC87-495F-85B3-539174A8E881}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -119,6 +121,16 @@ Global
 		{008531FB-84AD-4342-8BC5-F94D1B16CA04}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{008531FB-84AD-4342-8BC5-F94D1B16CA04}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{008531FB-84AD-4342-8BC5-F94D1B16CA04}.Release|x86.ActiveCfg = Release|Any CPU
+		{5C83D844-EC87-495F-85B3-539174A8E881}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C83D844-EC87-495F-85B3-539174A8E881}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C83D844-EC87-495F-85B3-539174A8E881}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{5C83D844-EC87-495F-85B3-539174A8E881}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{5C83D844-EC87-495F-85B3-539174A8E881}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5C83D844-EC87-495F-85B3-539174A8E881}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C83D844-EC87-495F-85B3-539174A8E881}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C83D844-EC87-495F-85B3-539174A8E881}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{5C83D844-EC87-495F-85B3-539174A8E881}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{5C83D844-EC87-495F-85B3-539174A8E881}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
