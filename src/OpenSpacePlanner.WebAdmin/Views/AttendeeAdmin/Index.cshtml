@@ -12,7 +12,7 @@
 	<dl>
 		@{ string attendeeName = @attendee.LastName + " " + @attendee.FirstName; }
 		<dd>@*@Html.ActionLink(attendeeName, "Edit", new { id=attendee.Id}, null)*@
-		@attendeeName
+		@attendeeName / @attendee.Tag
 		</dd>
 	</dl>
 }
