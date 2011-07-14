@@ -1,0 +1,18 @@
+﻿@using OpenSpacePlanner.Contracts
+@model IEnumerable<IAttendee>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@foreach(var attendee in Model) {
+	<dl>
+		@{ string attendeeName = @attendee.LastName + " " + @attendee.FirstName; }
+		<dd>@Html.ActionLink(attendeeName, "Edit", new { id=attendee.Id}, null)
+		
+		</dd>
+	</dl>
+}
