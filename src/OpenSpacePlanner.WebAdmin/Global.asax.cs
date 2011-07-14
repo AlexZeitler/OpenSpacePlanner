@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using FluentNHibernate.Cfg;
 using LightCore;
+using LightCore.Lifecycle;
 using OpenSpacePlanner.Contracts;
 using OpenSpacePlanner.Repositories;
 using OpenSpacePlanner.Repositories.Mappings;
@@ -42,8 +43,8 @@ namespace OpenSpacePlanner.WebAdmin {
 			Action<MappingConfiguration> mappingConfiguration =
 				mappings => mappings.FluentMappings.AddFromAssemblyOf<AttendeeMap>();
 			IContainerBuilder builder = new ContainerBuilder();
-			builder.Register<INHibernateSessionProvider, SqlServerConnectionStringNHibernateSessionProvider>().WithArguments("nosplanner", mappingConfiguration);
-			builder.Register<IAttendeeRepository, AttendeeRepository>();
+			builder.Register<INHibernateSessionProvider, SqlServerConnectionStringNHibernateSessionProvider>().WithArguments("nosplanner", mappingConfiguration).ControlledBy<SingletonLifecycle>();
+			builder.Register<IAttendeeRepository, AttendeeRepository>().ControlledBy<SingletonLifecycle>();
 			_container = builder.Build();
 		}
 	}
