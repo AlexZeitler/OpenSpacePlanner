@@ -11,8 +11,8 @@
 @foreach(var attendee in Model) {
 	<dl>
 		@{ string attendeeName = @attendee.LastName + " " + @attendee.FirstName; }
-		<dd>@Html.ActionLink(attendeeName, "Edit", new { id=attendee.Id}, null)
-		
+		<dd>@*@Html.ActionLink(attendeeName, "Edit", new { id=attendee.Id}, null)*@
+		@attendeeName
 		</dd>
 	</dl>
 }

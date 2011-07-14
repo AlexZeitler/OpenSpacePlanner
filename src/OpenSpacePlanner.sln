@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSpacePlanner.Client", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSpacePlanner.TestConsole", "OpenSpacePlanner.TestConsole\OpenSpacePlanner.TestConsole.csproj", "{094EB347-27D0-4550-A052-EE525AF204A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSpacePlanner.Web", "OpenSpacePlanner.Web\OpenSpacePlanner.Web.csproj", "{008531FB-84AD-4342-8BC5-F94D1B16CA04}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenSpacePlanner.WebAdmin", "OpenSpacePlanner.WebAdmin\OpenSpacePlanner.WebAdmin.csproj", "{008531FB-84AD-4342-8BC5-F94D1B16CA04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

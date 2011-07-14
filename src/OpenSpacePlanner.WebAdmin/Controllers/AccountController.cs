@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Security.Principal;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using OpenSpacePlanner.Web.Models;
+using OpenSpacePlanner.WebAdmin.Models;
 
-namespace OpenSpacePlanner.Web.Controllers {
+namespace OpenSpacePlanner.WebAdmin.Controllers {
 	public class AccountController : Controller {
 
 		public IFormsAuthenticationService FormsService { get; set; }

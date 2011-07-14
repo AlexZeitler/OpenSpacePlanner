@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using OpenSpacePlanner.Contracts;
 using OpenSpacePlanner.Domain;
 
-namespace OpenSpacePlanner.Web.Controllers
+namespace OpenSpacePlanner.WebAdmin.Controllers
 {
     public class AttendeeAdminController : Controller
     {
