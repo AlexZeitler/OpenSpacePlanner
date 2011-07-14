@@ -35,12 +35,14 @@ namespace OpenSpacePlanner.SessionWeb.Controllers {
 
 		[HttpPost]
 		public ActionResult Create(NosSession session) {
-			IAttendee attendee = _attendeeRepository.Get(session.OwnerTag);
-			session.Owner = attendee.FirstName + " " + attendee.LastName;
-			session.CreatedOn = DateTime.Now;
-			session.Start = DateTime.Now;
-			session.End = DateTime.Now;
-			_sessionRepository.Insert(session);
+			if (null != session && !string.IsNullOrEmpty(session.OwnerTag)) {
+				IAttendee attendee = _attendeeRepository.Get(session.OwnerTag);
+				session.Owner = attendee.FirstName + " " + attendee.LastName;
+				session.CreatedOn = DateTime.Now;
+				session.Start = DateTime.Now;
+				session.End = DateTime.Now;
+				_sessionRepository.Insert(session);
+			}
 			return RedirectToAction("Index");
 		}
 
