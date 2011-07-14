@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using OpenSpacePlanner.Contracts;
+using OpenSpacePlanner.Domain;
 
 namespace OpenSpacePlanner.SessionWeb.Controllers {
 	public class HomeController : Controller {
@@ -25,6 +26,22 @@ namespace OpenSpacePlanner.SessionWeb.Controllers {
 
 		public ActionResult About() {
 			return View();
+		}
+
+		[HttpGet]
+		public ActionResult Create() {
+			return View();
+		}
+
+		[HttpPost]
+		public ActionResult Create(NosSession session) {
+			IAttendee attendee = _attendeeRepository.Get(session.OwnerTag);
+			session.Owner = attendee.FirstName + " " + attendee.LastName;
+			session.CreatedOn = DateTime.Now;
+			session.Start = DateTime.Now;
+			session.End = DateTime.Now;
+			_sessionRepository.Insert(session);
+			return RedirectToAction("Index");
 		}
 
 		public ActionResult Sessions() {

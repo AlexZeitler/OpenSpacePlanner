@@ -1,0 +1,99 @@
+﻿@model OpenSpacePlanner.Contracts.INosSession
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>NosSession</legend>
+
+        @*<div class="editor-label">
+            @Html.LabelFor(model => model.Start)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Start)
+            @Html.ValidationMessageFor(model => model.Start)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.End)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.End)
+            @Html.ValidationMessageFor(model => model.End)
+        </div>*@
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+
+       @* <div class="editor-label">
+            @Html.LabelFor(model => model.Owner)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Owner)
+            @Html.ValidationMessageFor(model => model.Owner)
+        </div>*@
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.OwnerTag)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.OwnerTag)
+            @Html.ValidationMessageFor(model => model.OwnerTag)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Description)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Description)
+            @Html.ValidationMessageFor(model => model.Description)
+        </div>
+
+       @* <div class="editor-label">
+            @Html.LabelFor(model => model.CreatedOn)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CreatedOn)
+            @Html.ValidationMessageFor(model => model.CreatedOn)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Room)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Room)
+            @Html.ValidationMessageFor(model => model.Room)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Tag)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Tag)
+            @Html.ValidationMessageFor(model => model.Tag)
+        </div>*@
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
