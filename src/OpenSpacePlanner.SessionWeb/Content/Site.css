@@ -221,10 +221,13 @@ table
 {
   border: solid 1px #333;
   border-collapse: collapse;
+  margin-top: 30px;
+	margin-bottom: 30px;
 }
 
 table td 
 {
+	text-align: center;
   padding: 5px;   
   border: solid 1px #e8eef4;
 }
@@ -232,9 +235,23 @@ table td
 table th
 {
   padding: 6px 5px;
-  text-align: left;
+  text-align: center;
   background-color: #e8eef4; 
   border: solid 1px #e8eef4;   
+}
+
+thead tr th {
+	width: 200px;
+}
+
+thead tr th:first-child {
+	width: 100px;
+}
+
+.innertable {
+	margin: 0px;
+	width: 100%;
+	border:none;
 }
 
 /* MISC  

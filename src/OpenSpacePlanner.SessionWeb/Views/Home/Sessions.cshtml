@@ -2,7 +2,7 @@
 @using OpenSpacePlanner.Domain
 @model IList<INosSession>
 
-<table width="100%" style="margin-top:30px;margin-bottom:30px">
+<table>
 	<thead onclick="$('#samstag').toggle()">
 		<tr>
 			<th>
@@ -27,7 +27,7 @@
 		<td>
 			9:00 - 9:45
 		</td>
-		<td colspan="4">
+		<td colspan="4"  style="">
 			Ankommen
 		</td>
 	</tr>
@@ -35,14 +35,21 @@
 		<td>
 			10:00 - 10:45
 		</td>
-		<td colspan="4">
-			Themenfindung
+		<td colspan="4" style="">
+		<table class="innertable">
+			<tr>
+				<td style="text-align: right;border:none"><img src="/content/images/attendees.png" /></td>
+				<td style="border:none"><h2>Themenfindung</h2></td>
+				<td style="text-align: left;border:none"><img src="/content/images/attendees.png"/></td>
+			</tr>
+		</table>
+			
 		</td>
 	</tr>
 	<tr>
 		<td>
 		</td>
-		<td colspan="4">
+		<td colspan="4" style="">
 			Raumwechsel
 		</td>
 	</tr>
@@ -66,7 +73,7 @@
 	<tr>
 		<td>
 		</td>
-		<td colspan="4">
+		<td colspan="4" style="">
 			Raumwechsel
 		</td>
 	</tr>
@@ -91,8 +98,8 @@
 		<td>
 			12:45 - 14:00
 		</td>
-		<td colspan="4">
-			Themenfindung
+		<td colspan="4" style="">
+			Mittagspause
 		</td>
 	</tr>
 	<tr>
@@ -162,7 +169,7 @@
 	</tr>
 	</tbody>
 </table>
-<table style="width: 100%">
+<table>
 	<thead onclick="$('#sonntag').toggle()">
 		<tr>
 			<th>
@@ -187,6 +194,21 @@
 		<td>
 			10:00 - 10:45
 		</td>
+		<td colspan="4" style="">
+		<table class="innertable">
+			<tr>
+				<td style="text-align: right;border:none"><img src="/content/images/attendees.png" /></td>
+				<td style="border:none"><h2>Themenfindung</h2></td>
+				<td style="text-align: left;border:none"><img src="/content/images/attendees.png"/></td>
+			</tr>
+		</table>
+			
+		</td>
+	</tr>
+	<tr>
+		<td>
+			10:00 - 10:45
+		</td>
 		<td>
 			@Html.Partial("Session", Model, new ViewDataDictionary { new KeyValuePair<string, object>("session", "Session 1.6") })
 		</td>
@@ -198,6 +220,13 @@
 		</td>
 		<td>
 			@Html.Partial("Session", Model, new ViewDataDictionary { new KeyValuePair<string, object>("session", "Session 4.6") })
+		</td>
+	</tr>
+	<tr>
+		<td>
+		</td>
+		<td colspan="4" style="">
+			Raumwechsel
 		</td>
 	</tr>
 	<tr>
@@ -219,6 +248,13 @@
 	</tr>
 	<tr>
 		<td>
+		</td>
+		<td colspan="4" style="">
+			Raumwechsel
+		</td>
+	</tr>
+	<tr>
+		<td>
 			12:00 - 12:45
 		</td>
 		<td>
@@ -232,6 +268,13 @@
 		</td>
 		<td>
 			@Html.Partial("Session", Model, new ViewDataDictionary { new KeyValuePair<string, object>("session", "Session 4.8") })
+		</td>
+	</tr>
+	<tr>
+		<td>
+		</td>
+		<td colspan="4" style="">
+			Mittagspause
 		</td>
 	</tr>
 	<tr>
