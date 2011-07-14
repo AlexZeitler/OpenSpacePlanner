@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using OpenSpacePlanner.Contracts;
+using OpenSpacePlanner.Domain;
 
 namespace OpenSpacePlanner.Web.Controllers
 {
@@ -23,5 +24,15 @@ namespace OpenSpacePlanner.Web.Controllers
             return View(model);
         }
 
+		[HttpGet]
+		public ActionResult Create() {
+			return View();
+		}
+
+		[HttpPost]
+		public ActionResult Create(Attendee attendee) {
+			_attendeeRepository.Insert(attendee);
+			return RedirectToAction("Index");
+		}
     }
 }
