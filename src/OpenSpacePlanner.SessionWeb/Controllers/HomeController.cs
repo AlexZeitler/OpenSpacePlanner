@@ -60,5 +60,13 @@ namespace OpenSpacePlanner.SessionWeb.Controllers {
 			var model = _nosClient.GetPlannedSessions();
 			return PartialView("Sonntag", model);
 		}
+
+		[HttpGet]
+		public ActionResult SessionDetails(Guid id) {
+			var model = _sessionRepository.Get(id);
+			ViewData.Add("session", model.Room);
+			ViewData.Add("details", true);
+			return PartialView("Session", new List<INosSession> {model});
+		}
 	}
 }

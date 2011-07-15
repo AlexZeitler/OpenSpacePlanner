@@ -27,4 +27,22 @@
 				alert(error.responseText);
 			}
 		});
+	}
+
+
+	function sessiondetails(guid) {
+		$.ajax({
+			type: "GET",
+			url: "/Home/SessionDetails/" + guid,
+			dataType: 'html',
+			cache: false,
+			success: function (result) {
+				$('#sessiondetails').empty();
+				$("#sessiondetails").append(result);
+				$('#sessiondetails').show();
+			},
+			error: function (error, response) {
+				alert(error.responseText);
+			}
+		});
 }

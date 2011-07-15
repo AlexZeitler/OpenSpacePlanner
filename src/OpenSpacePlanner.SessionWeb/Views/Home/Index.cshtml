@@ -8,6 +8,11 @@
 	@Html.ActionLink("Session vorschlagen","Create","Home", null, new { style="text-decoration:none; color:#696969" })
 </div>
 
+<div class="tablelike" onclick="$('#sessiondetails').toggle()">
+	Session-Details
+	<div id="sessiondetails"></div>
+</div>
+
 <div id="sessions">
 @RenderPage("Sessions.cshtml",Model)
 </div>
@@ -15,6 +20,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
+		$('#sessiondetails').hide();
 		refresh();
 		setInterval(refresh, 10000);
 	});

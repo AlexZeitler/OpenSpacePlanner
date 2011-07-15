@@ -102,6 +102,7 @@
   <ItemGroup>
     <Content Include="Content\images\attendees.png" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\sessions.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

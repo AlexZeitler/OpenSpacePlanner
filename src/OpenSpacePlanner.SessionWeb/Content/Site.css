@@ -375,3 +375,19 @@ div#title
 	background-color: #e8eef4;   
 	border: solid 1px #e8eef4;
 }
+
+.session {
+	background-color: #FFFBD4;
+	padding:5px;
+	text-align:center
+}
+
+.nosession {
+	background-color: #efefef;
+}
+
+#sessiondetails {
+	width: 400px;
+	margin-left: auto ;
+  margin-right: auto ;
+}

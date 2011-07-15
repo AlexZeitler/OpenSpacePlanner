@@ -13,7 +13,7 @@
     <file relUrl="Scripts/MicrosoftMvcValidation.debug.js" publishTime="07/14/2011 11:23:45" />
     <file relUrl="bin/OpenSpacePlanner.Repositories.dll" publishTime="07/14/2011 22:58:48" />
     <file relUrl="bin/Microsoft.Practices.ServiceLocation.dll" publishTime="07/10/2011 21:32:02" />
-    <file relUrl="Web.config" publishTime="07/14/2011 22:51:37" />
+    <file relUrl="Web.config" publishTime="07/15/2011 10:38:04" />
     <file relUrl="Views/Home/Samstag.cshtml" publishTime="07/14/2011 21:49:38" />
     <file relUrl="bin/PDMLab.Common.xml" publishTime="07/03/2011 23:06:51" />
     <file relUrl="Content/themes/base/images/ui-icons_cd0a0a_256x240.png" publishTime="07/14/2011 11:23:45" />
@@ -25,13 +25,13 @@
     <file relUrl="Content/images/attendees.png" publishTime="07/14/2011 20:32:08" />
     <file relUrl="Content/themes/base/images/ui-bg_glass_75_e6e6e6_1x400.png" publishTime="07/14/2011 11:23:45" />
     <file relUrl="Scripts/jquery-ui.js" publishTime="07/14/2011 11:23:45" />
-    <file relUrl="bin/OpenSpacePlanner.SessionWeb.pdb" publishTime="07/15/2011 09:19:55" />
+    <file relUrl="bin/OpenSpacePlanner.SessionWeb.pdb" publishTime="07/15/2011 10:31:47" />
     <file relUrl="bin/Microsoft.ApplicationServer.Serialization.dll" publishTime="07/10/2011 15:15:45" />
     <file relUrl="bin/LightCore.Configuration.xml" publishTime="07/10/2011 21:32:02" />
     <file relUrl="Scripts/jquery.unobtrusive-ajax.min.js" publishTime="07/14/2011 11:23:45" />
     <file relUrl="bin/Microsoft.ServiceModel.Web.jQuery.dll" publishTime="07/10/2011 15:15:44" />
     <file relUrl="Scripts/jquery-1.4.4.min.js" publishTime="07/14/2011 11:23:45" />
-    <file relUrl="bin/OpenSpacePlanner.SessionWeb.dll" publishTime="07/15/2011 09:19:55" />
+    <file relUrl="bin/OpenSpacePlanner.SessionWeb.dll" publishTime="07/15/2011 10:31:47" />
     <file relUrl="Content/themes/base/images/ui-bg_glass_55_fbf9ee_1x400.png" publishTime="07/14/2011 11:23:45" />
     <file relUrl="bin/LightCore.Integration.Web.xml" publishTime="07/14/2011 09:40:57" />
     <file relUrl="bin/Iesi.Collections.pdb" publishTime="07/03/2011 23:06:08" />
@@ -45,7 +45,7 @@
     <file relUrl="bin/OpenSpacePlanner.Contracts.pdb" publishTime="07/14/2011 22:58:47" />
     <file relUrl="bin/Microsoft.ApplicationServer.Common.dll" publishTime="07/10/2011 15:15:44" />
     <file relUrl="Views/Home/Sessions.cshtml" publishTime="07/14/2011 21:54:15" />
-    <file relUrl="Views/Home/Index.cshtml" publishTime="07/15/2011 09:31:25" />
+    <file relUrl="Views/Home/Index.cshtml" publishTime="07/15/2011 10:14:55" />
     <file relUrl="bin/LightCore.CommonServiceLocator.dll" publishTime="07/10/2011 21:32:02" />
     <file relUrl="bin/Microsoft.Net.Http.xml" publishTime="07/10/2011 15:15:44" />
     <file relUrl="Content/themes/base/images/ui-icons_222222_256x240.png" publishTime="07/14/2011 11:23:45" />
@@ -66,12 +66,13 @@
     <file relUrl="bin/OpenSpacePlanner.Client.dll" publishTime="07/15/2011 09:19:53" />
     <file relUrl="Content/themes/base/images/ui-bg_glass_65_ffffff_1x400.png" publishTime="07/14/2011 11:23:45" />
     <file relUrl="bin/PDMLab.Common.dll" publishTime="07/03/2011 23:06:51" />
+    <file relUrl="Scripts/sessions.js" publishTime="07/15/2011 10:28:52" />
     <file relUrl="Views/Account/ChangePassword.cshtml" publishTime="07/14/2011 11:23:45" />
     <file relUrl="Scripts/jquery.validate-vsdoc.js" publishTime="07/14/2011 11:23:45" />
     <file relUrl="bin/Microsoft.ApplicationServer.Serialization.xml" publishTime="07/10/2011 15:15:45" />
     <file relUrl="Content/themes/base/images/ui-bg_highlight-soft_75_cccccc_1x100.png" publishTime="07/14/2011 11:23:45" />
     <file relUrl="Scripts/jquery-ui.min.js" publishTime="07/14/2011 11:23:45" />
-    <file relUrl="Content/Site.css" publishTime="07/15/2011 09:47:40" />
+    <file relUrl="Content/Site.css" publishTime="07/15/2011 10:34:50" />
     <file relUrl="bin/FluentNHibernate.dll" publishTime="07/03/2011 23:06:09" />
     <file relUrl="bin/Castle.Core.dll" publishTime="07/03/2011 23:06:09" />
     <file relUrl="Scripts/MicrosoftMvcValidation.js" publishTime="07/14/2011 11:23:45" />
@@ -85,14 +86,14 @@
     <file relUrl="bin/Microsoft.QueryComposition.dll" publishTime="07/10/2011 15:15:45" />
     <file relUrl="bin/Microsoft.ApplicationServer.Http.dll" publishTime="07/10/2011 15:15:44" />
     <file relUrl="Scripts/jquery.unobtrusive-ajax.js" publishTime="07/14/2011 11:23:45" />
-    <file relUrl="Views/Shared/_Layout.cshtml" publishTime="07/14/2011 16:53:03" />
+    <file relUrl="Views/Shared/_Layout.cshtml" publishTime="07/15/2011 09:59:18" />
     <file relUrl="bin/Castle.Core.xml" publishTime="07/03/2011 23:06:09" />
     <file relUrl="Scripts/MicrosoftMvcAjax.debug.js" publishTime="07/14/2011 11:23:45" />
     <file relUrl="Content/themes/base/images/ui-bg_glass_95_fef1ec_1x400.png" publishTime="07/14/2011 11:23:45" />
     <file relUrl="bin/Microsoft.Net.Http.dll" publishTime="07/10/2011 15:15:44" />
     <file relUrl="Scripts/jquery-1.4.4-vsdoc.js" publishTime="07/14/2011 11:23:45" />
     <file relUrl="Scripts/jquery.validate.js" publishTime="07/14/2011 11:23:45" />
-    <file relUrl="Views/Home/Session.cshtml" publishTime="07/14/2011 17:04:48" />
+    <file relUrl="Views/Home/Session.cshtml" publishTime="07/15/2011 10:36:23" />
     <file relUrl="Content/themes/base/images/ui-bg_flat_0_aaaaaa_40x100.png" publishTime="07/14/2011 11:23:45" />
     <file relUrl="bin/Microsoft.ApplicationServer.Http.xml" publishTime="07/10/2011 15:15:44" />
     <file relUrl="Scripts/jquery.validate.unobtrusive.min.js" publishTime="07/14/2011 11:23:45" />

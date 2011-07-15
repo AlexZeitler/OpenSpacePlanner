@@ -4,12 +4,15 @@
 	var session = Model.FirstOrDefault(s => s.Room == ViewData["session"].ToString());
 	if (null != session) {
 		
-						   	<div style="background-color: #FFFBD4;padding:5px;text-align:center">
+						   	<div class="session" onclick="sessiondetails('@session.Id')">
 								<h4>@session.Title</h4>
-								(@session.Owner)</div>
-						   									
+								(@session.Owner)<div>
+						   								@if(null!= ViewData["details"] && (bool) ViewData["details"]) {
+																							   	@session.Description
+														}
+													</div>	</div>
 	}
 	else {
-		 	<div style="background-color: #efefef;">&nbsp;</div>
+		 	<div class="nosession">&nbsp;</div>
 	}
 }
