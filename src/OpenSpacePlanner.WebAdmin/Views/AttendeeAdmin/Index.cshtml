@@ -8,6 +8,8 @@
 
 <h2>Index</h2>
 
+@Html.ActionLink("New", "Create")
+
 @foreach(var attendee in Model) {
 	<dl>
 		@{ string attendeeName = @attendee.LastName + " " + @attendee.FirstName; }
