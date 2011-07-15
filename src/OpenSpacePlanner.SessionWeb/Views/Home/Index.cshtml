@@ -1,8 +1,12 @@
 ﻿@using OpenSpacePlanner.Contracts
 @model IList<INosSession>
 @{
-	ViewBag.Title = "Home Page";
+	ViewBag.Title = "Sessions .NET Open Space Süd 2011 in Karlsruhe";
 }
+
+<div id="addsession">
+	@Html.ActionLink("Session vorschlagen","Create","Home", null, new { style="text-decoration:none; color:#696969" })
+</div>
 
 <div id="sessions">
 @RenderPage("Sessions.cshtml",Model)

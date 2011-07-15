@@ -362,3 +362,15 @@ div#title
 {
     width: 6em;
 }
+
+#addsession 
+{
+	width: 943px;
+	text-align: center;
+	font-weight:bold;
+	margin-top:30px; 
+	padding: 6px 5px;  
+	text-align: center;  
+	background-color: #e8eef4;   
+	border: solid 1px #e8eef4;
+}
