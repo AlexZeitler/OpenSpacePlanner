@@ -1,4 +1,4 @@
-In this repository you'll find the code for the Kinect Session Planning Board from the .NET Open Space Süd 2011 in Karlsruhe.
+In this repository you'll find the code for the Kinect Session Planning Board from the [.NET Open Space Sued 2011 in Karlsruhe](http://karlsruhe.netopenspace.de/2011/).
 ![Session Planning with Kinect](http://farm7.static.flickr.com/6006/5949581951_f2be34fa32.jpg)
 
 
