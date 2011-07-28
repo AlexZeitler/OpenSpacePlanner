@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="OpenSpacePlanner.SessionSlotControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:OpenSpacePlanner="clr-namespace:OpenSpacePlanner" 
+             mc:Ignorable="d" d:DataContext="{d:DesignInstance OpenSpacePlanner:SessionSlotControl, IsDesignTimeCreatable=True}"
+             d:DesignHeight="100" d:DesignWidth="200" Drop="ControlDrop">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="b2v" />
+    </UserControl.Resources>
+    <Grid AllowDrop="True" DragOver="ControlDragOver" Background="#01FFFFFF">
+        <Rectangle Stroke="YellowGreen" />
+        <Grid Visibility="{Binding HasSession, Converter={StaticResource b2v}}" PreviewMouseDown="GridPreviewMouseDown">
+            <OpenSpacePlanner:SessionControl x:Name="SessionDetails" DataContext="{Binding PlannedSession}" Margin="-5" />
+        </Grid>
+        <TextBlock Text="{Binding PredefinedUsage}" Visibility="{Binding IsPredefined, Converter={StaticResource b2v}}" Foreground="LightSkyBlue" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <TextBlock Text="{Binding SlotName}" Visibility="{Binding CanBePlanned, Converter={StaticResource b2v}}" Foreground="Yellow" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    </Grid>
+</UserControl>
