@@ -2,15 +2,14 @@
 using System.Linq;
 using System.Reactive.Linq;
 using System.Windows;
-using Microsoft.Research.Kinect.Nui;
+using Microsoft.Kinect;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace OpenSpacePlanner
 {
   public class KinectOpenSpace
   {
-    private readonly Runtime nui;
-    private Point kinectScreen = new Point(640, 480);
+    private readonly KinectSensor nui;
     private int player = -1;
     private int inactivityCounter;
     // ReSharper disable NotAccessedField.Local
@@ -44,37 +43,25 @@ namespace OpenSpacePlanner
 
     public KinectOpenSpace(Point screenSize)
     {
-      Screen = new Point(800, 600);
-      if (screenSize != null)
-        Screen = screenSize;
-
-      nui = new Runtime();
+      Screen = screenSize;
 
       try
       {
-        nui.Initialize(RuntimeOptions.UseDepthAndPlayerIndex | RuntimeOptions.UseSkeletalTracking | RuntimeOptions.UseColor);
+        if (KinectSensor.KinectSensors.Count > 0)
+        {
+          nui = KinectSensor.KinectSensors[0];
+          nui.Start();
+          nui.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
+          nui.DepthStream.Enable(DepthImageFormat.Resolution640x480Fps30);
+          nui.SkeletonFrameReady += NuiSkeletonFrameReady;
+          inactivityTimer = Observable.Interval(TimeSpan.FromMilliseconds(200)).ObserveOnDispatcher().Subscribe(_ => OnInactivityTimer());
+          IsAvailable = true;
+        }
       }
-      catch (InvalidOperationException)
+      catch (Exception ex)
       {
-        //MessageBox.Show("Runtime initialization failed. Please make sure Kinect device is plugged in.");
-        return;
+        MessageBox.Show("Kinect initialization failed. Please make sure Kinect device is plugged in." + Environment.NewLine + ex.Message);
       }
-
-      try
-      {
-        nui.VideoStream.Open(ImageStreamType.Video, 2, ImageResolution.Resolution640x480, ImageType.Color);
-        nui.DepthStream.Open(ImageStreamType.Depth, 2, ImageResolution.Resolution320x240, ImageType.DepthAndPlayerIndex);
-
-      }
-      catch (InvalidOperationException)
-      {
-        MessageBox.Show("Failed to open stream. Please make sure to specify a supported image type and resolution.");
-        return;
-      }
-
-      nui.SkeletonFrameReady += NuiSkeletonFrameReady;
-      inactivityTimer = Observable.Interval(TimeSpan.FromMilliseconds(200)).ObserveOnDispatcher().Subscribe(_ => OnInactivityTimer());
-      IsAvailable = true;
     }
 
     private void OnInactivityTimer()
@@ -92,46 +79,33 @@ namespace OpenSpacePlanner
 
     private void NuiSkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
     {
-      SkeletonFrame skeletonFrame = e.SkeletonFrame;
+      var skeletonFrame = e.OpenSkeletonFrame();
+      var skeletons = new Skeleton[skeletonFrame.SkeletonArrayLength];
+      skeletonFrame.CopySkeletonDataTo(skeletons);
 
       inactivityCounter = 0;
-      if (skeletonFrame.Skeletons.Where(x => x.TrackingID == player).FirstOrDefault() == null)
+      if (skeletons.FirstOrDefault(x => x.TrackingId == player) == null)
       {
         player = -1;
         OnKinectLeave(new KinectLeaveEventHandlerArgs { Player = player });
       }
-      foreach (var skeleton in skeletonFrame.Skeletons)
+      foreach (var skeleton in skeletons.Where(s => s.TrackingState == SkeletonTrackingState.Tracked))
       {
-
-
-        if (SkeletonTrackingState.Tracked == skeleton.TrackingState)
+        foreach (Joint joint in skeleton.Joints.Where(j => j.JointType == JointType.HandRight))
         {
-          foreach (Joint joint in skeleton.Joints)
+          // Neuer Spieler gekommen
+          if (player < 0)
           {
-            if (joint.ID == JointID.HandRight)
-            {
-              // Neuer Spieler gekommen
-              if (player < 0)
-              {
-                player = skeleton.TrackingID;
-                OnKinectEnter(new KinectEnterEventHandlerArgs { Player = player });
-              }
-
-              // Wenn aktueller Spieler, dann Event auslösen
-              if (player == skeleton.TrackingID)
-              {
-                var screenPos = ReSizeForScreen(new Point(joint.Position.X, joint.Position.Y));
-                //var screenPos = ReSizeForScreen(getDisplayPosition2(joint));
-                OnKinectPos(
-                    new KinectPosEventHandlerArgs
-                        {
-                          Player = player,
-                          Point = screenPos
-                        }
-                        );
-              }
-            }
+            player = skeleton.TrackingId;
+            OnKinectEnter(new KinectEnterEventHandlerArgs { Player = player });
           }
+
+          // Wenn aktueller Spieler, dann Event auslösen
+          if (player != skeleton.TrackingId) 
+            continue;
+
+          var screenPos = ReSizeForScreen(new Point(joint.Position.X, joint.Position.Y));
+          OnKinectPos(new KinectPosEventHandlerArgs { Player = player, Point = screenPos } );
         }
       }
     }
@@ -145,21 +119,6 @@ namespace OpenSpacePlanner
       return new Point((x * Screen.X) / 2 + (Screen.X / 2), Screen.Y - (y * Screen.Y));
     }
 
-    // ReSharper disable UnusedMember.Local
-    private Point GetDisplayPosition(Joint joint)
-    {
-      float depthX, depthY;
-      nui.SkeletonEngine.SkeletonToDepthImage(joint.Position, out depthX, out depthY);
-      depthX = Math.Max(0, Math.Min(depthX * 320, 320));  //convert to 320, 240 space
-      depthY = Math.Max(0, Math.Min(depthY * 240, 240));  //convert to 320, 240 space
-      int colorX, colorY;
-      var imageViewArea = new ImageViewArea();
-      // only ImageResolution.Resolution640x480 is supported at this point
-      nui.NuiCamera.GetColorPixelCoordinatesFromDepthPixel(ImageResolution.Resolution640x480, imageViewArea, (int)depthX, (int)depthY, 0, out colorX, out colorY);
-
-      // map back to skeleton.Width & skeleton.Height
-      return new Point((int)(Screen.X * colorX / 640.0), (int)(Screen.Y * colorY / 480));
-    }
   }
   // ReSharper restore UnusedMember.Local
 

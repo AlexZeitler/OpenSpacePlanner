@@ -3,10 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="ServerUrl" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://nossued.alexonasp.net</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="UnlockPassword" Type="System.String" Scope="User">
-      <Value Profile="(Default)">arf2011</Value>
+      <Value Profile="(Default)">nossued2012</Value>
     </Setting>
   </Settings>
 </SettingsFile>
