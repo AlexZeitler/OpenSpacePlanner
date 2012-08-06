@@ -51,9 +51,11 @@ namespace OpenSpacePlanner
         {
           nui = KinectSensor.KinectSensors[0];
           nui.Start();
-          nui.ColorStream.Enable(ColorImageFormat.RgbResolution640x480Fps30);
           nui.DepthStream.Enable(DepthImageFormat.Resolution640x480Fps30);
+          nui.DepthStream.Range = DepthRange.Default;
+          nui.SkeletonStream.Enable();
           nui.SkeletonFrameReady += NuiSkeletonFrameReady;
+          nui.ElevationAngle = 10;
           inactivityTimer = Observable.Interval(TimeSpan.FromMilliseconds(200)).ObserveOnDispatcher().Subscribe(_ => OnInactivityTimer());
           IsAvailable = true;
         }
@@ -80,6 +82,8 @@ namespace OpenSpacePlanner
     private void NuiSkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
     {
       var skeletonFrame = e.OpenSkeletonFrame();
+      if(skeletonFrame == null)
+        return;
       var skeletons = new Skeleton[skeletonFrame.SkeletonArrayLength];
       skeletonFrame.CopySkeletonDataTo(skeletons);
 
@@ -91,7 +95,7 @@ namespace OpenSpacePlanner
       }
       foreach (var skeleton in skeletons.Where(s => s.TrackingState == SkeletonTrackingState.Tracked))
       {
-        foreach (Joint joint in skeleton.Joints.Where(j => j.JointType == JointType.HandRight))
+        foreach (var joint in skeleton.Joints.Where(j => j.JointType == JointType.HandRight))
         {
           // Neuer Spieler gekommen
           if (player < 0)
