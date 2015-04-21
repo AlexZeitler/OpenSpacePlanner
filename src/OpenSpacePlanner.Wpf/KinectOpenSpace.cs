@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Runtime.InteropServices;
 using System.Windows;
 using Microsoft.Kinect;
 using MessageBox = System.Windows.Forms.MessageBox;
@@ -9,15 +11,22 @@ namespace OpenSpacePlanner
 {
   public class KinectOpenSpace
   {
+		[DllImport("user32.dll")]
+		static extern void MessageBeep(uint uType);
+
     private readonly KinectSensor nui;
-    private int player = -1;
-    private int inactivityCounter;
+		private int player = -1;
+
+		private readonly AverageSumDouble handZ = new AverageSumDouble(5);
+		private float oldZ = -1.0f;
+		private int inactivityCounter;
     // ReSharper disable NotAccessedField.Local
     private IDisposable inactivityTimer;
     // ReSharper restore NotAccessedField.Local
 
     public Point Screen { get; set; }
-    public Boolean IsAvailable;
+		public bool IsAvailable { get; private set; }
+		public string Mode { get { return !IsAvailable ? string.Empty : nui.DepthStream.Range.ToString(); } }
 
     public event KinectEnterEventHandler KinectEnter;
     public event KinectLeaveEventHandler KinectLeave;
@@ -31,6 +40,8 @@ namespace OpenSpacePlanner
 
     private void OnKinectLeave(KinectLeaveEventHandlerArgs kinectLeaveEventHandlerArgs)
     {
+			oldZ = -1.0f;
+
       if ((KinectLeave != null) && (IsAvailable))
         KinectLeave(this, kinectLeaveEventHandlerArgs);
     }
@@ -41,30 +52,35 @@ namespace OpenSpacePlanner
         KinectEnter(this, kinectEnterEventHandlerArgs);
     }
 
-    public KinectOpenSpace(Point screenSize)
+    public KinectOpenSpace(Point screenSize, bool designMode)
     {
       Screen = screenSize;
 
+			if (designMode || (KinectSensor.KinectSensors.Count <= 0))
+				return;
+
       try
       {
-        if (KinectSensor.KinectSensors.Count > 0)
-        {
-          nui = KinectSensor.KinectSensors[0];
-          nui.Start();
-          nui.DepthStream.Enable(DepthImageFormat.Resolution640x480Fps30);
-          nui.DepthStream.Range = DepthRange.Default;
-          nui.SkeletonStream.Enable();
-          nui.SkeletonFrameReady += NuiSkeletonFrameReady;
-          nui.ElevationAngle = 10;
-          inactivityTimer = Observable.Interval(TimeSpan.FromMilliseconds(200)).ObserveOnDispatcher().Subscribe(_ => OnInactivityTimer());
-          IsAvailable = true;
-        }
+	      nui = KinectSensor.KinectSensors[0];
+	      nui.Start();
+	      nui.DepthStream.Enable(DepthImageFormat.Resolution640x480Fps30);
+	      nui.DepthStream.Range = DepthRange.Default;
+	      nui.SkeletonStream.Enable();
+	      nui.SkeletonFrameReady += SkeletonFrameReady;
+	      nui.ElevationAngle = 10;
+	      inactivityTimer = Observable.Interval(TimeSpan.FromMilliseconds(200)).ObserveOnDispatcher().Subscribe(_ => OnInactivityTimer());
+	      IsAvailable = true;
       }
       catch (Exception ex)
       {
         MessageBox.Show("Kinect initialization failed. Please make sure Kinect device is plugged in." + Environment.NewLine + ex.Message);
       }
     }
+
+		public void ToggleMode()
+		{
+			nui.DepthStream.Range = (nui.DepthStream.Range == DepthRange.Default) ? DepthRange.Near : DepthRange.Default;
+		}
 
     private void OnInactivityTimer()
     {
@@ -79,44 +95,59 @@ namespace OpenSpacePlanner
       OnKinectLeave(new KinectLeaveEventHandlerArgs { Player = player });
     }
 
-    private void NuiSkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
+    private void SkeletonFrameReady(object sender, SkeletonFrameReadyEventArgs e)
     {
-      var skeletonFrame = e.OpenSkeletonFrame();
-      if(skeletonFrame == null)
-        return;
-      var skeletons = new Skeleton[skeletonFrame.SkeletonArrayLength];
-      skeletonFrame.CopySkeletonDataTo(skeletons);
+			using (var skeletonFrame = e.OpenSkeletonFrame())
+			{
+				if (skeletonFrame == null)
+					return;
+				var skeletons = new Skeleton[skeletonFrame.SkeletonArrayLength];
+				skeletonFrame.CopySkeletonDataTo(skeletons);
 
-      inactivityCounter = 0;
-      if (skeletons.FirstOrDefault(x => x.TrackingId == player) == null)
-      {
-        player = -1;
-        OnKinectLeave(new KinectLeaveEventHandlerArgs { Player = player });
-      }
-      foreach (var skeleton in skeletons.Where(s => s.TrackingState == SkeletonTrackingState.Tracked))
-      {
-        foreach (var joint in skeleton.Joints.Where(j => j.JointType == JointType.HandRight))
-        {
-          // Neuer Spieler gekommen
-          if (player < 0)
-          {
-            player = skeleton.TrackingId;
-            OnKinectEnter(new KinectEnterEventHandlerArgs { Player = player });
-          }
+				inactivityCounter = 0;
+				if (skeletons.FirstOrDefault(x => x.TrackingId == player) == null)
+				{
+					player = -1;
+					OnKinectLeave(new KinectLeaveEventHandlerArgs {Player = player});
+				}
+				foreach (var skeleton in skeletons.Where(s => s.TrackingState == SkeletonTrackingState.Tracked))
+				{
+					foreach (var joint in skeleton.Joints.Where(j => j.JointType == JointType.HandRight))
+					{
+						// Neuer Spieler gekommen
+						if (player < 0)
+						{
+							player = skeleton.TrackingId;
+							OnKinectEnter(new KinectEnterEventHandlerArgs {Player = player});
+						}
 
-          // Wenn aktueller Spieler, dann Event auslösen
-          if (player != skeleton.TrackingId) 
-            continue;
+						// Wenn aktueller Spieler, dann Event auslösen
+						if (player != skeleton.TrackingId)
+							continue;
 
-          var screenPos = ReSizeForScreen(new Point(joint.Position.X, joint.Position.Y));
-          OnKinectPos(new KinectPosEventHandlerArgs { Player = player, Point = screenPos } );
-        }
-      }
+						var newZ = joint.Position.Z;
+						var currentZ = (float)handZ.GetAverageValue(newZ);
+
+						Debug.WriteLine("{0}", newZ - currentZ);
+
+						if ((oldZ > 0f) && (newZ - currentZ) < -0.1)
+						{
+							handZ.Reset();
+							MessageBeep(0);
+						}
+
+						oldZ = newZ;
+
+						var screenPos = ReSizeForScreen(new Point(joint.Position.X, joint.Position.Y));
+						OnKinectPos(new KinectPosEventHandlerArgs {Player = player, Point = screenPos});
+					}
+				}
+			}
     }
 
     private Point ReSizeForScreen(Point jointPos)
     {
-      Console.WriteLine("Joint in x={0}, y={1}", jointPos.X, jointPos.Y);
+      //Debug.WriteLine("Joint in x={0}, y={1}", jointPos.X, jointPos.Y);
 
       var x = Math.Min(Math.Max(jointPos.X * 1.5, -1), 1);
       var y = Math.Min(Math.Max(jointPos.Y * 1.5, 0), 1);

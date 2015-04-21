@@ -21,7 +21,7 @@ namespace OpenSpacePlanner
   /// <summary>
   /// Interaction logic for MainWindow.xaml
   /// </summary>
-  public partial class MainWindow : Window, INotifyPropertyChanged, IDragContainer
+  public partial class MainWindow : INotifyPropertyChanged, IDragContainer
   {
     public event PropertyChangedEventHandler PropertyChanged;
 
@@ -44,8 +44,9 @@ namespace OpenSpacePlanner
     private bool kinectHold;
     private IDragContainer kinectSource;
     private Session kinectSession;
-    public bool KinectConnected { get { return kinect.IsAvailable; } }
-    private KinectOpenSpace kinect;
+		public bool KinectConnected { get { return kinect.IsAvailable; } }
+		public string KinectMode { get { return kinect.Mode; } }
+		private KinectOpenSpace kinect;
 
     private NosClient webClient;
     public string WebUrl { get; set; }
@@ -53,7 +54,23 @@ namespace OpenSpacePlanner
 
     public bool Locked { get; set; }
 
-    public MainWindow()
+		private static bool? isInDesignMode;
+		public static bool IsInDesignMode
+		{
+			get
+			{
+				if (!isInDesignMode.HasValue)
+				{
+					isInDesignMode = (bool)DependencyPropertyDescriptor.FromProperty(DesignerProperties.IsInDesignModeProperty, typeof(FrameworkElement)).Metadata.DefaultValue;
+					if (!isInDesignMode.Value && Process.GetCurrentProcess().ProcessName.StartsWith("devenv", StringComparison.Ordinal))
+						isInDesignMode = true;
+				}
+				return isInDesignMode.Value;
+			}
+		}
+
+		
+		public MainWindow()
     {
       InitializeComponent();
 
@@ -82,7 +99,7 @@ namespace OpenSpacePlanner
         LoadTestSessions(sessionList);
       }
 
-      InitializeKinect();
+		InitializeKinect();
 
       DataContext = this;
       if (!kinect.IsAvailable)
@@ -93,13 +110,13 @@ namespace OpenSpacePlanner
 
     private void InitializeKinect()
     {
-      kinect = new KinectOpenSpace(new Point(Width, Height));
+      kinect = new KinectOpenSpace(new Point(Width, Height), IsInDesignMode);
       kinect.KinectEnter += OnRealKinectEnter;
       kinect.KinectLeave += OnRealKinectLeave;
       kinect.KinectPos += OnRealKinectPos;
 
-      kinectX = new AverageSumDouble(3);
-      kinectY = new AverageSumDouble(3);
+      kinectX = new AverageSumDouble();
+      kinectY = new AverageSumDouble();
 
       kinectSync = Environment.TickCount;
     }
@@ -139,7 +156,7 @@ namespace OpenSpacePlanner
       foreach (var session in sessionList)
       {
         var s = new Session(session);
-        var existing = UnplannedSessions.Where(us => us.Id == session.Id).FirstOrDefault();
+        var existing = UnplannedSessions.FirstOrDefault(us => us.Id == session.Id);
         var slot = GetSlotByName(s.TimeSlot);
 
         if (s.IsPlanned)
@@ -209,7 +226,7 @@ namespace OpenSpacePlanner
 
     private SessionSlotControl GetSlotByName(string name)
     {
-      return slots.Where(s => s.SlotName == name).FirstOrDefault();
+      return slots.FirstOrDefault(s => s.SlotName == name);
     }
 
     private void SessionListPreviewMouseDown(object sender, MouseButtonEventArgs e)
@@ -338,10 +355,10 @@ namespace OpenSpacePlanner
     public static TChildItem FindVisualChild<TChildItem>(DependencyObject obj) where TChildItem : DependencyObject
     {
       // Search immediate children first (breadth-first)     
-      for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+      for (var i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
       {
         var child = VisualTreeHelper.GetChild(obj, i);
-        if (child != null && child is TChildItem)
+        if (child is TChildItem)
           return (TChildItem)child;
         var childOfChild = FindVisualChild<TChildItem>(child);
         if (childOfChild != null)
@@ -440,21 +457,21 @@ namespace OpenSpacePlanner
 
     private void OnRealKinectPos(object sender, KinectPosEventHandlerArgs args)
     {
-      Console.WriteLine("Kinect x={0}, y={1}", args.Point.X, args.Point.Y);
-      //kinectPos = args.Point;
+      //Debug.WriteLine("Kinect x={0}, y={1}", args.Point.X, args.Point.Y);
+
       OnKinectPos(args.Point.X, args.Point.Y);
       MoveKinectHand();
     }
 
     private void OnRealKinectLeave(object sender, KinectLeaveEventHandlerArgs args)
     {
-      Console.WriteLine("Kinect Leave");
+      //Console.WriteLine("Kinect Leave");
       OnKinectLeave();
     }
 
     private void OnRealKinectEnter(object sender, KinectEnterEventHandlerArgs args)
     {
-      Console.WriteLine("Kinect Enter");
+      //Console.WriteLine("Kinect Enter");
       OnKinectEnter();
     }
 
@@ -536,7 +553,7 @@ namespace OpenSpacePlanner
       }
       if (kinectDelay == 5)
       {
-        Console.WriteLine("Kinect *** HOLD ***");
+        //Console.WriteLine("Kinect *** HOLD ***");
         kinectHold = !kinectHold;
         if (kinectHold)
         {
@@ -613,6 +630,13 @@ namespace OpenSpacePlanner
     }
 
     #endregion
+
+		private void KinectHandClick(object sender, MouseButtonEventArgs e)
+		{
+			kinect.ToggleMode();
+			if (PropertyChanged != null)
+				PropertyChanged(this, new PropertyChangedEventArgs("KinectMode"));
+		}
 
   }
 }
